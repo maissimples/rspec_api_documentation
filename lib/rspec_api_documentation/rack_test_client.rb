@@ -35,7 +35,11 @@ module RspecApiDocumentation
     protected
 
     def do_request(method, path, params, request_headers)
-      rack_test_session.send(method, path, params, headers(method, path, params, request_headers))
+      request_params = params
+      if request_headers["Content-Type"] =~ /json/
+        request_params = params.to_json unless params.empty?
+      end
+      rack_test_session.send(method, path, request_params, headers(method, path, request_params, request_headers))
     end
 
     def headers(*args)
