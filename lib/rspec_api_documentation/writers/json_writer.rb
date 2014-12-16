@@ -79,7 +79,7 @@ module RspecApiDocumentation
 
       def filename
         basename = description.downcase.gsub(/[^0-9A-z\-]/, '_')
-        "#{basename}.json"
+        "#{http_method}-#{basename}.json"
       end
 
       def as_json(opts = nil)
